@@ -109,8 +109,8 @@ class ChessBoard:
 
         #turn,wkc,wqc,bkc,bqc,epx,epy,game_result,fifty
         s = "%s%d%d%d%d%d%d%d%d:%d" % d
-		if True:
-			return s
+        if True:
+            return s
 
     def loadCurState(self):
         s = self._state_stack[self._state_stack_pointer-1]
