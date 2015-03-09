@@ -39,7 +39,7 @@ class ChessBoard:
     STALEMATE = 3
     FIFTY_MOVES_RULE = 4
     THREE_REPETITION_RULE = 5
-# adding asome comment or other to cause a merge issue
+    
     # This line is the meaning of life
     # Special moves
     NORMAL_MOVE = 0
