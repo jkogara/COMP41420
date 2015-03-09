@@ -39,7 +39,7 @@ class ChessBoard:
     STALEMATE = 3
     FIFTY_MOVES_RULE = 4
     THREE_REPETITION_RULE = 5
-        # testing a comment to break git
+
     # Special moves
     NORMAL_MOVE = 0
     EP_MOVE = 1
