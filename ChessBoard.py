@@ -39,7 +39,7 @@ class ChessBoard:
     STALEMATE = 3
     FIFTY_MOVES_RULE = 4
     THREE_REPETITION_RULE = 5
-
+        # testing a comment to break git
     # Special moves
     NORMAL_MOVE = 0
     EP_MOVE = 1
@@ -82,7 +82,7 @@ class ChessBoard:
     _cur_move = [None, None, None, False, None, None, 0]
     _moves = []
 
-        # test comment
+    # test comment
     _promotion_value = 0
 
     def __init__(self):
