@@ -1,0 +1,10 @@
+e4 c5
+c3 d5
+exd5 Qxd5
+d4 Nf6
+Nf3 Bg4
+Be2 e6
+h3 Bh5
+O-O Nc6
+Be3 cxd4
+cxd4 Bb4
