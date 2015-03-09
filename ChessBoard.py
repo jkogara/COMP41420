@@ -24,6 +24,7 @@ class ChessBoard:
     ROOK = 2
 
     # Reason values
+# some temp comment
     AMBIGUOUS_MOVE = 7
     GAME_IS_OVER = 6
     INVALID_COLOR = 2
@@ -82,6 +83,7 @@ class ChessBoard:
     _cur_move = [None, None, None, False, None, None, 0]
     _moves = []
 
+	# test comment
     _promotion_value = 0
 
     def __init__(self):

@@ -8,3 +8,4 @@ h3 Bh5
 O-O Nc6
 Be3 cxd4
 cxd4 Bb4
+a4 h4
