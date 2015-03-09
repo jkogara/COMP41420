@@ -13,16 +13,16 @@ class ChessBoard:
     def __init__(self):
         self.resetBoard()
 
-	# Color values
-	WHITE = 0
-	BLACK = 1
-	NOCOLOR = -1
+    # Color values
+    WHITE = 0
+    BLACK = 1
+    NOCOLOR = -1
 
-	# Promotion values
-	QUEEN = 1
-	ROOK = 2
-	KNIGHT = 3
-	BISHOP = 4
+    # Promotion values
+    QUEEN = 1
+    ROOK = 2
+    KNIGHT = 3
+    BISHOP = 4
 
     # Reason values
     INVALID_MOVE = 1
@@ -84,7 +84,7 @@ class ChessBoard:
     _moves = []
 
     _promotion_value = 0
-    
+
     def loadCurState(self):
         s = self._state_stack[self._state_stack_pointer-1]
         b= s[:64]
@@ -107,7 +107,7 @@ class ChessBoard:
         self._game_result           = int(v[7])
 
         self._fifty = f
-    
+
     def state2str(self):
 
 	b = ""
@@ -174,7 +174,7 @@ class ChessBoard:
 
     def endGame(self, reason):
         self._game_result = reason
-    
+
     def updateKingLocations(self):
         for y in range(0, 8):
             for x in range(0, 8):
