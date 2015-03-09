@@ -10,3 +10,4 @@ Be3 cxd4
 cxd4 Bb4
 a4 h5
 b4 g5
+axg5 a5
