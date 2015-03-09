@@ -39,14 +39,13 @@ class ChessBoard:
     STALEMATE = 3
     FIFTY_MOVES_RULE = 4
     THREE_REPETITION_RULE = 5
-# adding asome comment or other to cause a merge issue
-    # This line is the meaning of life
+
     # Special moves
-    NORMAL_MOVE = 0
-    EP_MOVE = 1
     EP_CAPTURE_MOVE = 2
-    PROMOTION_MOVE = 3
+    EP_MOVE = 1
     KING_CASTLE_MOVE = 4
+    NORMAL_MOVE = 0
+    PROMOTION_MOVE = 3
     QUEEN_CASTLE_MOVE = 5
 
     # Text move output type
