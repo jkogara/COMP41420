@@ -24,13 +24,13 @@ class ChessBoard:
     BISHOP = 4
 
     # Reason values
-    INVALID_MOVE = 1
+    AMBIGUOUS_MOVE = 7
+    GAME_IS_OVER = 6
     INVALID_COLOR = 2
     INVALID_FROM_LOCATION = 3
+    INVALID_MOVE = 1
     INVALID_TO_LOCATION = 4
     MUST_SET_PROMOTION = 5
-    GAME_IS_OVER = 6
-    AMBIGUOUS_MOVE = 7
 
     # Result values
     NO_RESULT = 0
