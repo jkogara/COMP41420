@@ -1333,3 +1333,22 @@ class ChessBoard:
             rank-=1
         print "  +-----------------+"
         print "    A B C D E F G H"
+
+    def printLastTextMove(self, format=1):
+        """
+        Prints the latest move as Algebraic chess notation.
+        Print None if no moves has been made.
+        """
+        if self._state_stack_pointer<=1: # No move has been done at this pointer
+           print 'Changed'
+
+        self.undo()
+        move = self._moves[self._state_stack_pointer-1]
+        res = self._formatTextMove(move, format)
+        self.redo()
+        print res
+
+if __name__ == "__main__":
+    cb = ChessBoard()
+    cb.addTextMove('e2e4')
+    cb.printLastTextMove()
