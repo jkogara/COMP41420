@@ -1346,7 +1346,7 @@ class ChessBoard:
         Print None if no moves has been made.
         """
         if self._state_stack_pointer<=1: # No move has been done at this pointer
-           print 'Changed'
+           print 'Changed item'
 
         self.undo()
         move = self._moves[self._state_stack_pointer-1]
