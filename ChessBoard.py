@@ -39,11 +39,8 @@ class ChessBoard:
     STALEMATE = 3
     FIFTY_MOVES_RULE = 4
     THREE_REPETITION_RULE = 5
-<<<<<<< HEAD
 	# testing a comment to break git
-=======
 # adding asome comment or other to cause a merge issue
->>>>>>> 049c15c16a7ce5fce4dd6926595723332077aee2
     # This line is the meaning of life
     # Special moves
     NORMAL_MOVE = 0
