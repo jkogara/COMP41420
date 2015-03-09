@@ -82,7 +82,7 @@ class ChessBoard:
     _cur_move = [None, None, None, False, None, None, 0]
     _moves = []
 
-	# test comment
+    # test comment
     _promotion_value = 0
 
     def __init__(self):
