@@ -24,6 +24,7 @@ class ChessBoard:
     ROOK = 2
 
     # Reason values
+# some temp comment
     AMBIGUOUS_MOVE = 7
     GAME_IS_OVER = 6
     INVALID_COLOR = 2
@@ -40,6 +41,7 @@ class ChessBoard:
     FIFTY_MOVES_RULE = 4
     THREE_REPETITION_RULE = 5
 	# testing a comment to break git
+    # This line is the meaning of life
     # Special moves
     NORMAL_MOVE = 0
     EP_MOVE = 1
