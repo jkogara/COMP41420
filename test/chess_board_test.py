@@ -63,6 +63,13 @@ class ChessBoardTest(unittest.TestCase):
         assert self.chess_board._state_stack_pointer == 1
 
 
+    def test_getLastMove(self):
+        self.assertEqual(self.chess_board.getLastMove(), None)
+        self.assertTrue(self.chess_board.addTextMove('e2e4'))
+        self.assertEqual(self.chess_board.getLastMove(), ((4, 6), (4, 4)))
+        self.assertTrue(self.chess_board.addTextMove('f7f5'))
+        self.assertEqual(self.chess_board.getLastMove(), ((5, 1), (5, 3)))
+
 
 
 if __name__ == '__main__':
