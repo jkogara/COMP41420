@@ -13,11 +13,11 @@ class ChessBoardTest(unittest.TestCase):
         # act
         self.chess_board.resetBoard()
         # assert
-        assert len(self.chess_board._moves) == 0
-        assert self.chess_board._game_result == 0
-        assert self.chess_board._reason == 0
-        assert self.chess_board._ep == [0,0]
-        assert self.chess_board._fifty == 0
+        self.assertEqual(len(self.chess_board._moves),0)
+        self.assertEqual(self.chess_board._game_result, 0)
+        self.assertEqual( self.chess_board._reason, 0)
+        self.assertEqual( self.chess_board._ep,[0,0])
+        self.assertEqual( self.chess_board._fifty, 0)
 
     def test_getMoveCount(self):
         self.assertEqual(self.chess_board.getMoveCount(), 0)
@@ -162,7 +162,7 @@ class ChessBoardTest(unittest.TestCase):
         self.assertTrue(self.chess_board.isGameOver())
 
     def test_getGameResult_returns_false_when_game_is_not_over(self):
-        assert self.chess_board.getGameResult() == False
+        self.assertEqual(self.chess_board.getGameResult(), False)
 
     def test_getGameResult_returns_true_when_game_is_over(self):
         # arrange
