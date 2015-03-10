@@ -150,11 +150,6 @@ class ChessBoardTest(unittest.TestCase):
         self.chess_board.addTextMove("e2e4")
         self.assertTrue(self.chess_board.getAllTextMoves())
     
-    def test_isCheck(self):
-        self.assertEqual(self.chess_board.isCheck(), False)
-        self.chess_board.setFEN('rnb1kbnr/pppp1ppp/8/4p3/5PPq/8/PPPPP2P/RNBQKBNR w KQkq - 1 3')
-        self.assertTrue(self.chess_board.isCheck())
-
     def test_setPromotion(self):
         self.chess_board.setPromotion(1)
         self.assertEqual(self.chess_board._promotion_value,1)
@@ -166,6 +161,19 @@ class ChessBoardTest(unittest.TestCase):
         self.assertEqual(self.chess_board.getPromotion(),1)
         self.chess_board.setPromotion(4)
         self.assertEqual(self.chess_board.getPromotion(),4)
+
+    def test_isCheck(self):
+        self.assertEqual(self.chess_board.isCheck(), False)
+        self.chess_board.setFEN('rnb1kbnr/pppp1ppp/8/4p3/5PPq/8/PPPPP2P/RNBQKBNR w KQkq - 1 3')
+        self.assertTrue(self.chess_board.isCheck())
+
+    def test_isGameOver(self):
+        self.chess_board.addTextMove('f4')
+        self.chess_board.addTextMove('e5')
+        self.chess_board.addTextMove('g4')
+        self.assertFalse(self.chess_board.isGameOver())
+        self.chess_board.addTextMove('Qh4')
+        self.assertTrue(self.chess_board.isGameOver())
 
     def test_getGameResult_returns_false_when_game_is_not_over(self):
         assert self.chess_board.getGameResult() == False
