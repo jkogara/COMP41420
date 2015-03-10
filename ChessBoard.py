@@ -184,7 +184,9 @@ class ChessBoard:
             return True
         return False
 
+
     def updateKingLocations(self):
+        # sets the king locations
         for y in range(0, 8):
             for x in range(0, 8):
                 if self._board[y][x] == "K":
@@ -257,8 +259,9 @@ class ChessBoard:
         elif self._board[y][x].islower():
             return self.BLACK
 
-    def isThreatened(self, lx, ly, player=None):
 
+    def isThreatened(self, lx, ly, player=None):
+    #returns if there is check
         if player == None:
             player = self._turn
 
@@ -850,7 +853,7 @@ class ChessBoard:
 
     def setFEN(self, fen):
         """
-        Sets the board and states accoring from a Forsyth-Edwards Notation string.
+        Sets the board and states according to a Forsyth-Edwards Notation string.
         Ex. 'rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2'
         """
         self._three_rep_stack = []
@@ -994,14 +997,14 @@ class ChessBoard:
 
     def gotoLast(self):
         """
-        Goto after the last knwon move.
+        Goto after the last known move.
         """
         self._state_stack_pointer = len(self._state_stack)
         self._load_cur_state()
 
     def undo(self):
         """
-        Undo the last move. Can be used to step back until the initial board setup.
+        Undoes the last move. Can be used to step back until the initial board setup.
         Returns True or False if no more moves can be undone.
         """
         if self._state_stack_pointer <= 1:
@@ -1012,7 +1015,7 @@ class ChessBoard:
 
     def redo(self):
         """
-        If you used the undo method to step backwards you can use this method to step forward until the last move i reached.
+        If you used the undo method to step backwards you can use this method to step forward until the last move is reached.
         Returns True or False if no more moves can be redone.
         """
         if self._state_stack_pointer == len(self._state_stack):
@@ -1023,7 +1026,7 @@ class ChessBoard:
 
     def setPromotion(self, promotion):
         """
-        Tell the chessboard how to promote a pawn.
+        Tells the chessboard how to promote a pawn.
         1=QUEEN, 2=ROOK, 3=KNIGHT, 4=BISHOP
         You can also set promotion to 0 (zero) to reset the promotion value.
         """
@@ -1334,7 +1337,7 @@ class ChessBoard:
         Returns the latest move as Algebraic chess notation.
         Returns None if no moves has been made.
         """
-        if self._state_stack_pointer <= 1:  # No move has been done at thos pointer
+        if self._state_stack_pointer <= 1:  # No move has been done at this pointer
             return None
 
         self.undo()
