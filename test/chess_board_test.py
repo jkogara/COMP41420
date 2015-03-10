@@ -147,8 +147,17 @@ class ChessBoardTest(unittest.TestCase):
     def test_getAllTextMoves(self):
         self.assertFalse(self.chess_board.getAllTextMoves())
 
+    def test_setPromotion(self):
+        self.chess_board.setPromotion(1)
+        self.assertEqual(self.chess_board._promotion_value,1)
+        self.chess_board.setPromotion(4)
+        self.assertEqual(self.chess_board._promotion_value,4)
 
-
+    def test_getPromotion(self):
+        self.chess_board.setPromotion(1)
+        self.assertEqual(self.chess_board.getPromotion(),1)
+        self.chess_board.setPromotion(4)
+        self.assertEqual(self.chess_board.getPromotion(),4)
 
 if __name__ == '__main__':
     unittest.main()
