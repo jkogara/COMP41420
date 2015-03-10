@@ -216,6 +216,15 @@ class ChessBoardTest(unittest.TestCase):
         self.assertTrue(self.chess_board.addTextMove('f1d3'))
         self.assertEqual(self.chess_board.getLastTextMove(), 'Bd3')
 
+    def test_getReason(self):
+        # testing 3 of the 7 possible reasons
+        self.chess_board.addTextMove('i9')
+        self.assertEqual(self.chess_board.getReason(), 1)
+        self.chess_board.addMove('a7', 'a5')
+        self.assertEqual(self.chess_board.getReason(), 3)
+        self.chess_board.setFEN('7K/2P5/k7/7p/8/8/8/8 w - - 1 30')
+        self.chess_board.addTextMove('c8')
+        self.assertEqual(self.chess_board.getReason(), 5)
 
 if __name__ == '__main__':
     unittest.main()
