@@ -45,13 +45,6 @@ class ChessBoardTest(unittest.TestCase):
                           ['.', '.', '.', '.', 'P', '.', '.', '.'], ['.', '.', '.', '.', '.', 'N', '.', '.'],
                           ['P', 'P', 'P', 'P', '.', 'P', 'P', 'P'], ['R', 'N', 'B', 'Q', 'K', 'B', '.', 'R']])
 
-    def test_getMoveCount(self):
-        self.assertEqual(self.chess_board.getMoveCount(), 0)
-        self.chess_board.addTextMove('a4')
-        self.assertEqual(self.chess_board.getMoveCount(), 1)
-        self.chess_board.addTextMove('g5')
-        self.assertEqual(self.chess_board.getMoveCount(), 2)
-
     def test_getCurrentMove(self):
         self.assertEqual(self.chess_board.getCurrentMove(), 0)
 
