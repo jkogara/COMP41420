@@ -50,6 +50,10 @@ class ChessBoardTest(unittest.TestCase):
         self.assertTrue(self.chess_board.addTextMove('g8h6'))
         self.assertEqual(self.chess_board.getCurrentMove(), 4)
 
+    def test_goToLast(self):
+        #want the pointer to be at the last
+        self.assertEqual(self.chess_board._state_stack_pointer, len(self.chess_board._state_stack))
+
     def test_getLastMove(self):
         self.assertEqual(self.chess_board.getLastMove(), None)
         self.assertTrue(self.chess_board.addTextMove('e2e4'))
