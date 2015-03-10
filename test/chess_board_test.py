@@ -53,6 +53,19 @@ class ChessBoardTest(unittest.TestCase):
         self.assertTrue(self.chess_board.addTextMove('f7f5'))
         self.assertEqual(self.chess_board.getLastMove(), ((5, 1), (5, 3)))
 
+    def test_getLastMoveType(self):
+        self.assertEqual(self.chess_board.getLastMoveType(), None)
+
+        self.assertTrue(self.chess_board.addTextMove('e2e4'))
+        self.assertEqual(self.chess_board.getLastMoveType(), self.chess_board.EP_MOVE)
+
+        self.assertTrue(self.chess_board.addTextMove('f7f5'))
+        self.assertEqual(self.chess_board.getLastMoveType(), self.chess_board.EP_MOVE)
+
+        self.assertTrue(self.chess_board.addTextMove('e4f5'))
+        self.assertEqual(self.chess_board.getLastMoveType(), self.chess_board.NORMAL_MOVE)
+
+
 
 
 if __name__ == '__main__':
