@@ -1,5 +1,6 @@
 import unittest
 import sys
+import cStringIO
 
 sys.path.append(".")
 from ChessBoard import ChessBoard
@@ -216,6 +217,33 @@ class ChessBoardTest(unittest.TestCase):
 
         self.assertTrue(self.chess_board.addTextMove('f1d3'))
         self.assertEqual(self.chess_board.getLastTextMove(), 'Bd3')
+
+    def test_printBoard(self):
+        # arrange
+        valid_output = """+-----------------+
+8 | r n b q k b n r |
+7 | p p p p p p p p |
+6 | . . . . . . . . |
+5 | . . . . . . . . |
+4 | . . . . . . . . |
+3 | . . . . . . . . |
+2 | P P P P P P P P |
+1 | R N B Q K B N R |
+  +-----------------+
+    A B C D E F G H"""
+
+        # act
+        stdout_ = sys.stdout
+        stream = cStringIO.StringIO()
+        sys.stdout = stream
+        self.chess_board.printBoard()
+        sys.stdout = stdout_ # restore the previous stdout.
+        actual_output = stream.getvalue()
+
+        # assert
+        self.assertEqual("  {0}\n".format(valid_output), actual_output)
+
+
 
     def test_addMove_invalid_coords(self):
         self.assertEqual(self.chess_board.addMove((0,0), (9,9)), False)
