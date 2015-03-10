@@ -793,6 +793,11 @@ class ChessBoard:
             res = "%s%s%s%s%s%s%s%s" % (piece, hint_f, hint_r, tc, files[tpos[0]], ranks[tpos[1]], pt, check)
         return res
 
+    def _get_last_move(self):
+        if self._state_stack_pointer <= 1:  # No move has been done at thos pointer
+            return None
+        return self._moves[self._state_stack_pointer - 2]
+
     #----------------------------------------------------------------------------
     # PUBLIC METHODS
     #----------------------------------------------------------------------------
@@ -1219,31 +1224,19 @@ class ChessBoard:
         4=KING_CASTLE_MOVE (Castling on the king side.)
         5=QUEEN_CASTLE_MOVE (Castling on the queen side.)
         """
-        if self._state_stack_pointer <= 1:  # No move has been done at thos pointer
-            return -1
 
-        self.undo()
-        move = self._moves[self._state_stack_pointer - 1]
-        res = move[6]
-        self.redo()
-
-        return res
-
-    def getLastMove(self):
-        """
-        Returns a tupple containing two tupples describing the move just made using the internal coordinates.
-        In the format ((from_x, from_y), (to_x, to_y))
-        Ex. ((4, 6), (4, 4))
-        Returns None if no moves has been made.
-        """
-        if self._state_stack_pointer <= 1:  # No move has been done at thos pointer
+        move = self._get_last_move()
+        if move is None:
             return None
 
-        move = self._moves[self._state_stack_pointer - 2]
-        res = (move[1], move[2])
-        self.redo()
+        return move[6]
 
-        return res
+    def getLastMove(self):
+        move = self._get_last_move()
+        if move is None:
+            return None
+
+        return move[1], move[2]
 
     def addTextMove(self, txt):
         """
