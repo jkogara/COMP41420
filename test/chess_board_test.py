@@ -188,6 +188,10 @@ class ChessBoardTest(unittest.TestCase):
         # assert
         self.assertTrue(len(self.chess_board.getBoard()) > 0)
 
+    def test_getTurn(self):
+        self.chess_board._turn = self.chess_board.WHITE
+        self.assertEqual(self.chess_board.getTurn(), self.chess_board.WHITE)
+
 
 
 if __name__ == '__main__':
