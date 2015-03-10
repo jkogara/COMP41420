@@ -233,11 +233,9 @@ class ChessBoardTest(unittest.TestCase):
     A B C D E F G H"""
 
         # act
-        stdout_ = sys.stdout
         stream = cStringIO.StringIO()
         sys.stdout = stream
         self.chess_board.printBoard()
-        sys.stdout = stdout_ # restore the previous stdout.
         actual_output = stream.getvalue()
 
         # assert
