@@ -101,8 +101,11 @@ class ChessBoardTest(unittest.TestCase):
         self.assertTrue(self.chess_board.addTextMove('e4f5'))
         self.assertEqual(self.chess_board.getLastMoveType(), self.chess_board.NORMAL_MOVE)
 
-
-
+    def test_setPromotion(self):
+        self.chess_board.setPromotion(1)
+        self.assertEqual(self.chess_board._promotion_value,1)
+        self.chess_board.setPromotion(4)
+        self.assertEqual(self.chess_board._promotion_value,4)
 
 if __name__ == '__main__':
     unittest.main()
