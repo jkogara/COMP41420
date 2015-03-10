@@ -162,5 +162,15 @@ class ChessBoardTest(unittest.TestCase):
         self.chess_board.setPromotion(4)
         self.assertEqual(self.chess_board.getPromotion(),4)
 
+    def test_getGameResult_returns_false_when_game_is_not_over(self):
+        assert self.chess_board.getGameResult() == False
+
+    def test_getGameResult_returns_true_when_game_is_over(self):
+        # arrange
+        self.chess_board._game_result = 1
+        # assert
+        self.assertTrue(self.chess_board.getGameResult())
+
+
 if __name__ == '__main__':
     unittest.main()
