@@ -56,6 +56,13 @@ class ChessBoardTest(unittest.TestCase):
         self.assertTrue(self.chess_board.addTextMove('g8h6'))
         self.assertEqual(self.chess_board.getCurrentMove(), 4)
 
+    def test_gotoFirst(self):
+        # act
+        self.chess_board.gotoFirst()
+        # assert
+        assert self.chess_board._state_stack_pointer == 1
+
+
 
 
 if __name__ == '__main__':
