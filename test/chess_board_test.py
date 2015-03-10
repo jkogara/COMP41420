@@ -143,9 +143,12 @@ class ChessBoardTest(unittest.TestCase):
         self.assertTrue(self.chess_board.addTextMove('e4f5'))
         self.assertEqual(self.chess_board.getLastMoveType(), self.chess_board.NORMAL_MOVE)
 
-
-    def test_getAllTextMoves(self):
+    def test_getAllTextMoves_returns_false_when_no_moves(self):
         self.assertFalse(self.chess_board.getAllTextMoves())
+
+    def test_getAllTextMoves_returns_true_after_move(self):
+        self.chess_board.addTextMove("e2e4")
+        self.assertTrue(self.chess_board.getAllTextMoves())
 
     def test_setPromotion(self):
         self.chess_board.setPromotion(1)
