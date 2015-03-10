@@ -123,13 +123,13 @@ class ChessBoardTest(unittest.TestCase):
         self.assertEqual(self.chess_board.getLastMoveType(), None)
 
         self.assertTrue(self.chess_board.addTextMove('e2e4'))
-        self.assertEqual(self.chess_board.getLastMoveType(), ChessMove.EP_MOVE)
+        self.assertEqual(self.chess_board.getLastMoveType(), ChessMove().EP_MOVE)
 
         self.assertTrue(self.chess_board.addTextMove('f7f5'))
-        self.assertEqual(self.chess_board.getLastMoveType(), ChessMove.EP_MOVE)
+        self.assertEqual(self.chess_board.getLastMoveType(), ChessMove().EP_MOVE)
 
         self.assertTrue(self.chess_board.addTextMove('e4f5'))
-        self.assertEqual(self.chess_board.getLastMoveType(), ChessMove.NORMAL_MOVE)
+        self.assertEqual(self.chess_board.getLastMoveType(), ChessMove().NORMAL_MOVE)
 
     def test_getAllTextMoves_returns_false_when_no_moves(self):
         self.assertFalse(self.chess_board.getAllTextMoves())

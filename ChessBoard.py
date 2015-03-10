@@ -1,6 +1,6 @@
 # /usr/bin/env python
 
-#####################################################################
+# ####################################################################
 # ChessBoard v2.05 is created by John Eriksson - http://arainyday.se
 # It's released under the Gnu Public Licence (GPL)
 # Have fun!
@@ -8,6 +8,43 @@
 
 from copy import deepcopy
 from pprint import pprint
+
+
+class MoveType:
+    def __init__(self, move_int):
+        self.moveInt = move_int
+
+
+class EPCaptureMove(MoveType):
+    def __init__(self):
+        MoveType.__init__(self, 2)
+
+
+class EPMove(MoveType):
+    def __init__(self):
+        MoveType.__init__(self, 1)
+
+
+class NormalMove(MoveType):
+    def __init__(self):
+        MoveType.__init__(self, 0)
+
+
+class KingCastleMove(MoveType):
+    def __init__(self):
+        MoveType.__init__(self, 4)
+        self.moveString = "0-0"
+
+
+class PromotionMove(MoveType):
+    def __init__(self):
+        MoveType.__init__(self, 3)
+
+
+class QueenCastleMove(MoveType):
+    def __init__(self):
+        MoveType.__init__(self, 5)
+        self.moveString = "0-0-0"
 
 
 class ChessMove:
@@ -32,7 +69,7 @@ class ChessMove:
         # check "+" "#"
         self.check = None
         # Special move type
-        self.special_move_type = 0
+        self.special_move_type = NormalMove().moveInt
 
 
 class ChessBoard:
@@ -494,7 +531,8 @@ class ChessBoard:
         if t == ChessMove.EP_CAPTURE_MOVE:
             self._board[self._ep[1]][self._ep[0]] = '.'
             self._cur_move.take = True
-            self._cur_move.special_move_type = ChessMove.EP_CAPTURE_MOVE
+            #   self._cur_move.special_move_type = ChessMove.EP_CAPTURE_MOVE
+            self._cur_move.special_move_type = EPCaptureMove().moveInt
 
         pv = self._promotion_value
         if self._turn == self.WHITE and toPos[1] == 0:
@@ -504,7 +542,8 @@ class ChessBoard:
             pc = ['Q', 'R', 'N', 'B']
             p = pc[pv - 1]
             self._cur_move.promotion = p
-            self._cur_move.special_move_type = ChessMove.PROMOTION_MOVE
+            # self._cur_move.special_move_type = ChessMove.PROMOTION_MOVE
+            self._cur_move.special_move_type = PromotionMove().moveInt
         elif self._turn == self.BLACK and toPos[1] == 7:
             if pv == 0:
                 self._reason = self.MUST_SET_PROMOTION
@@ -512,13 +551,15 @@ class ChessBoard:
             pc = ['q', 'r', 'n', 'b']
             p = pc[pv - 1]
             self._cur_move.promotion = p
-            self._cur_move.special_move_type = ChessMove.PROMOTION_MOVE
+            # self._cur_move.special_move_type = ChessMove.PROMOTION_MOVE
+            self._cur_move.special_move_type = PromotionMove().moveInt
         else:
             p = self._board[fromPos[1]][fromPos[0]]
 
         if t == ChessMove.EP_MOVE:
             self._set_ep(toPos)
-            self._cur_move.special_move_type = ChessMove.EP_MOVE
+            # self._cur_move.special_move_type = ChessMove.EP_MOVE
+            self._cur_move.special_move_type = EPMove().moveInt
         else:
             self._clear_ep()
 
@@ -584,14 +625,17 @@ class ChessBoard:
             self._board[c_row][6] = k
             self._board[c_row][7] = "."
             self._board[c_row][5] = r
-            self._cur_move.special_move_type = ChessMove.KING_CASTLE_MOVE
+            # self._cur_move.special_move_type = ChessMove.KING_CASTLE_MOVE
+            self._cur_move.special_move_type = KingCastleMove.get_id()
         elif t == ChessMove.QUEEN_CASTLE_MOVE:
             self._fifty += 1
             self._board[c_row][4] = "."
             self._board[c_row][2] = k
             self._board[c_row][0] = "."
             self._board[c_row][3] = r
-            self._cur_move.special_move_type = ChessMove.QUEEN_CASTLE_MOVE
+            #self._cur_move.special_move_type = ChessMove.QUEEN_CASTLE_MOVE
+            self._cur_move.special_move_type = QueenCastleMove.get_id(
+            )
         else:
             if self._board[toPos[1]][toPos[0]] == ".":
                 self._fifty += 1
@@ -761,6 +805,10 @@ class ChessBoard:
                 return "O-O"
             elif special == ChessMove.QUEEN_CASTLE_MOVE:
                 return "O-O-O"
+
+            #if isinstance((special,KingCastleMove) or isinstance(special, QueenCastleMove)):
+            #    return special.moveString
+
 
             tc = "-"
             if take:
