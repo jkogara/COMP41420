@@ -126,7 +126,7 @@ class ChessBoard:
 
         return s
 
-    def loadCurState(self):
+    def _load_cur_state(self):
         s = self._state_stack[self._state_stack_pointer - 1]
         b = s[:64]
         v = s[64:72]
@@ -149,7 +149,7 @@ class ChessBoard:
 
         self._fifty = f
 
-    def pushState(self):
+    def _push_state(self):
 
         if self._state_stack_pointer != len(self._state_stack):
             self._state_stack = self._state_stack[:self._state_stack_pointer]
@@ -169,10 +169,10 @@ class ChessBoard:
 
         self._state_stack_pointer = len(self._state_stack)
 
-    def pushMove(self):
+    def _push_move(self):
         self._moves.append(deepcopy(self._cur_move))
 
-    def threeRepetitions(self):
+    def _three_repetitions(self):
 
         ts = self._three_rep_stack[:self._state_stack_pointer]
 
@@ -845,7 +845,7 @@ class ChessBoard:
         self._moves = []
         self._reason = 0
         self._game_result = 0
-        self.pushState()
+        self._push_state()
         self.updateKingLocations()
 
     def setFEN(self, fen):
@@ -894,7 +894,7 @@ class ChessBoard:
 
         self._state_stack.append(newstate)
         self._state_stack_pointer = 1
-        self.loadCurState()
+        self._load_cur_state()
 
         three_state = [self._white_king_castle,
                        self._white_queen_castle,
@@ -983,21 +983,21 @@ class ChessBoard:
             return False
 
         self._state_stack_pointer = move
-        self.loadCurState()
+        self._load_cur_state()
 
     def gotoFirst(self):
         """
         Goto before the first known move.
         """
         self._state_stack_pointer = 1
-        self.loadCurState()
+        self._load_cur_state()
 
     def gotoLast(self):
         """
         Goto after the last knwon move.
         """
         self._state_stack_pointer = len(self._state_stack)
-        self.loadCurState()
+        self._load_cur_state()
 
     def undo(self):
         """
@@ -1007,7 +1007,7 @@ class ChessBoard:
         if self._state_stack_pointer <= 1:
             return False
         self._state_stack_pointer -= 1
-        self.loadCurState()
+        self._load_cur_state()
         return True
 
     def redo(self):
@@ -1018,7 +1018,7 @@ class ChessBoard:
         if self._state_stack_pointer == len(self._state_stack):
             return False
         self._state_stack_pointer += 1
-        self.loadCurState()
+        self._load_cur_state()
         return True
 
     def setPromotion(self, promotion):
@@ -1221,11 +1221,11 @@ class ChessBoard:
         else:
             if self._fifty == 100:
                 self.endGame(self.FIFTY_MOVES_RULE)
-            elif self.threeRepetitions():
+            elif self._three_repetitions():
                 self.endGame(self.THREE_REPETITION_RULE)
 
-        self.pushState()
-        self.pushMove()
+        self._push_state()
+        self._push_move()
 
         return True
 
@@ -1325,7 +1325,7 @@ class ChessBoard:
             self.redo()
 
         self._state_stack_pointer = point
-        self.loadCurState()
+        self._load_cur_state()
 
         return res
 
