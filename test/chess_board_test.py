@@ -107,5 +107,11 @@ class ChessBoardTest(unittest.TestCase):
         self.chess_board.setPromotion(4)
         self.assertEqual(self.chess_board._promotion_value,4)
 
+    def test_getPromotion(self):
+        self.chess_board.setPromotion(1)
+        self.assertEqual(self.chess_board.getPromotion(),1)
+        self.chess_board.setPromotion(4)
+        self.assertEqual(self.chess_board.getPromotion(),4)
+
 if __name__ == '__main__':
     unittest.main()
