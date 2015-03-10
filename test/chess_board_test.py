@@ -3,7 +3,7 @@ import sys
 
 sys.path.append(".")
 from ChessBoard import ChessBoard
-
+from cStringIO import StringIO
 
 class ChessBoardTest(unittest.TestCase):
     def setUp(self):
@@ -238,6 +238,15 @@ class ChessBoardTest(unittest.TestCase):
         self.chess_board.setFEN('7K/2P5/k7/7p/8/8/8/8 w - - 1 30')
         self.chess_board.addTextMove('c8')
         self.assertEqual(self.chess_board.getReason(), 5)
+
+    def test_printLastTextMove(self):
+        old_stdout = sys.stdout
+        sys.stdout = mystdout = StringIO()
+        self.chess_board.addTextMove('e4')
+        self.chess_board.printLastTextMove()
+        self.chess_board.printLastTextMove(2)
+        sys.stdout = old_stdout
+        self.assertEqual(mystdout.getvalue(), "e4\ne2-e4\n")
 
 if __name__ == '__main__':
     unittest.main()
