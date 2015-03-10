@@ -216,6 +216,19 @@ class ChessBoardTest(unittest.TestCase):
         self.assertTrue(self.chess_board.addTextMove('f1d3'))
         self.assertEqual(self.chess_board.getLastTextMove(), 'Bd3')
 
+    def test_getValidMoves(self):
+        self.chess_board.setFEN('rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2')
+        # no moves if not your turn
+        self.assertEqual(self.chess_board.getValidMoves((1, 2)), [])
+        # no moves if there are no pieces on that square
+        self.assertEqual(self.chess_board.getValidMoves((1, 5)), [])
+        # The correct moves for the knight on that square
+        self.assertEqual(self.chess_board.getValidMoves((1, 7)), [(2, 5), (0, 5)])
+        # The false if y is outside range
+        self.assertEqual(self.chess_board.getValidMoves((1, 8)), False)
+        # The false if x is outside range
+        self.assertEqual(self.chess_board.getValidMoves((8, 1)), False)
+
     def test_getReason(self):
         # testing 3 of the 7 possible reasons
         self.chess_board.addTextMove('i9')
