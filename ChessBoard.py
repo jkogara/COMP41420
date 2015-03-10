@@ -741,8 +741,8 @@ class ChessBoard:
         #piece, from, to, take, promotion, check
 
         piece = move.piece
-        fpos = tuple(move.from_pos)
-        tpos = tuple(move.to_pos)
+        fpos = move.from_pos
+        tpos = move.to_pos
         take = move.take
         promo = move.promotion
         check = move.check
