@@ -82,6 +82,10 @@ class ChessBoardTest(unittest.TestCase):
         self.assertTrue(self.chess_board.addTextMove('f7f5'))
         self.assertEqual(self.chess_board.getLastMove(), ((5, 1), (5, 3)))
 
+    def test_getAllTextMoves(self):
+        #
+        self.assertFalse(self.chess_board.getAllTextMoves())
+
 
 
 if __name__ == '__main__':
