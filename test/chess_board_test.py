@@ -185,8 +185,6 @@ class ChessBoardTest(unittest.TestCase):
         self.chess_board._turn = self.chess_board.WHITE
         self.assertEqual(self.chess_board.getTurn(), self.chess_board.WHITE)
 
-
-
     def test_getLastTextMove_format_AN(self):
         format = self.chess_board.AN
         self.assertEqual(self.chess_board.getLastTextMove(format), None)
