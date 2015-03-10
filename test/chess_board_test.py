@@ -62,6 +62,18 @@ class ChessBoardTest(unittest.TestCase):
         # assert
         assert self.chess_board._state_stack_pointer == 1
 
+    def test_addTextMove_returns_false_when_move_is_invalid(self):
+        # arrange
+        invalid_txt = "wtf"
+        # assert
+        self.assertFalse(self.chess_board.addTextMove(invalid_txt))
+
+        
+    def test_addTextMove_returns_true_when_move_is_valid(self):
+        # arrange
+        valid_txt = "e2e4"
+        # assert
+        self.assertTrue(self.chess_board.addTextMove(valid_txt))
 
     def test_getLastMove(self):
         self.assertEqual(self.chess_board.getLastMove(), None)
