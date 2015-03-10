@@ -80,6 +80,15 @@ class ChessBoardTest(unittest.TestCase):
         p0 = self.chess_board._state_stack_pointer
         self.assertEqual((p1 - 1), p0)
 
+    def test_redo(self):
+        self.assertEqual(self.chess_board.redo(), False)
+        self.assertTrue(self.chess_board.addTextMove('e2e4'))
+        self.assertTrue(self.chess_board.undo())
+        p1 = self.chess_board._state_stack_pointer
+        self.assertTrue(self.chess_board.redo())
+        p0 = self.chess_board._state_stack_pointer
+        self.assertEqual((p1 + 1), p0)
+
     def test_getLastMoveType(self):
         self.assertEqual(self.chess_board.getLastMoveType(), None)
 
