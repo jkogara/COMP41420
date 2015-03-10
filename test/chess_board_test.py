@@ -5,6 +5,7 @@ sys.path.append(".")
 from ChessBoard import ChessBoard
 from cStringIO import StringIO
 
+
 class ChessBoardTest(unittest.TestCase):
     def setUp(self):
         self.chess_board = ChessBoard()
@@ -216,6 +217,25 @@ class ChessBoardTest(unittest.TestCase):
         self.assertTrue(self.chess_board.addTextMove('f1d3'))
         self.assertEqual(self.chess_board.getLastTextMove(), 'Bd3')
 
+    def test_addMove_invalid_coords(self):
+        self.assertEqual(self.chess_board.addMove((0,0), (9,9)), False)
+        self.assertEqual(self.chess_board._reason, self.chess_board.INVALID_TO_LOCATION)
+
+    def test_addMove_invalid_sameCoord(self):
+        self.assertEqual(self.chess_board.addMove((0,6), (0,6)), False)
+        self.assertEqual(self.chess_board._reason, self.chess_board.INVALID_TO_LOCATION)
+
+    def test_addMove_invalid_noPiece(self):
+        self.assertEqual(self.chess_board.addMove((0,5), (0,4)), False)
+        self.assertEqual(self.chess_board._reason, self.chess_board.INVALID_FROM_LOCATION)
+
+    def test_addMove_invalid_invalidMove(self):
+        self.assertEqual(self.chess_board.addMove((0,6), (0,3)), False)
+        self.assertEqual(self.chess_board._reason, self.chess_board.INVALID_MOVE)
+
+    def test_addMove_valid(self):
+        self.assertEqual(self.chess_board.addMove((0,6), (0,4)), True)
+    
     def test_getValidMoves(self):
         self.chess_board.setFEN('rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2')
         # no moves if not your turn
