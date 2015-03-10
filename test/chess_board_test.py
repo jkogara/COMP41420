@@ -25,13 +25,6 @@ class ChessBoardTest(unittest.TestCase):
         self.assertEqual(self.chess_board.getMoveCount(), 1)
         self.chess_board.addTextMove('g5')
         self.assertEqual(self.chess_board.getMoveCount(), 2)
-
-    def test_getMoveCount(self):
-        self.assertEqual(self.chess_board.getMoveCount(), 0)
-        self.chess_board.addTextMove('a4')
-        self.assertEqual(self.chess_board.getMoveCount(), 1)
-        self.chess_board.addTextMove('g5')
-        self.assertEqual(self.chess_board.getMoveCount(), 2)
     
     def test_getFEN(self):
         self.chess_board.setFEN('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1')
@@ -188,6 +181,45 @@ class ChessBoardTest(unittest.TestCase):
         # assert
         self.assertTrue(len(self.chess_board.getBoard()) > 0)
 
+
+
+    def test_getLastTextMove_format_AN(self):
+        format = self.chess_board.AN
+        self.assertEqual(self.chess_board.getLastTextMove(format), None)
+
+        self.assertTrue(self.chess_board.addTextMove('e2e4'))
+        self.assertEqual(self.chess_board.getLastTextMove(format), 'e2e4')
+
+        self.assertTrue(self.chess_board.addTextMove('f7f5'))
+        self.assertEqual(self.chess_board.getLastTextMove(format), 'f7f5')
+
+        self.assertTrue(self.chess_board.addTextMove('f1d3'))
+        self.assertEqual(self.chess_board.getLastTextMove(format), 'f1d3')
+
+    def test_getLastTextMove_format_LAN(self):
+        format = self.chess_board.LAN
+        self.assertEqual(self.chess_board.getLastTextMove(format), None)
+
+        self.assertTrue(self.chess_board.addTextMove('e2e4'))
+        self.assertEqual(self.chess_board.getLastTextMove(format), 'e2-e4')
+
+        self.assertTrue(self.chess_board.addTextMove('f7f5'))
+        self.assertEqual(self.chess_board.getLastTextMove(format), 'f7-f5')
+
+        self.assertTrue(self.chess_board.addTextMove('f1d3'))
+        self.assertEqual(self.chess_board.getLastTextMove(format), 'Bf1-d3')
+
+    def test_getLastTextMove_format_SAN(self):
+        self.assertEqual(self.chess_board.getLastTextMove(), None)
+
+        self.assertTrue(self.chess_board.addTextMove('e2e4'))
+        self.assertEqual(self.chess_board.getLastTextMove(), 'e4')
+
+        self.assertTrue(self.chess_board.addTextMove('f7f5'))
+        self.assertEqual(self.chess_board.getLastTextMove(), 'f5')
+
+        self.assertTrue(self.chess_board.addTextMove('f1d3'))
+        self.assertEqual(self.chess_board.getLastTextMove(), 'Bd3')
 
 
 if __name__ == '__main__':
