@@ -114,7 +114,7 @@ class ChessBoard:
         s = self._state_stack[self._state_stack_pointer-1]
         b= s[:64]
         v = s[64:72]
-        f =  int(s[73:])
+        f = int(s[73:])
 
         idx = 0
         for r in range(8):
@@ -941,7 +941,7 @@ class ChessBoard:
         """
         Returns the current halfmove number. Zero (0) means before first move.
         """
-        return self._state_stack-1
+        return len(self._state_stack)-1
 
     def gotoMove(self, move):
         """
