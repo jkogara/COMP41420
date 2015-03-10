@@ -185,7 +185,7 @@ class ChessBoard:
         return False
 
 
-    def updateKingLocations(self):
+    def _update_king_locations(self):
         # sets the king locations
         for y in range(0, 8):
             for x in range(0, 8):
@@ -194,17 +194,17 @@ class ChessBoard:
                 if self._board[y][x] == "k":
                     self._black_king_location = (x, y)
 
-    def setEP(self, epPos):
+    def _set_ep(self, epPos):
         self._ep[0], self._ep[1] = epPos
 
-    def clearEP(self):
+    def _clear_ep(self):
         self._ep[0] = 0
         self._ep[1] = 0
 
-    def endGame(self, reason):
+    def _end_game(self, reason):
         self._game_result = reason
 
-    def checkKingGuard(self, fromPos, moves, specialMoves={}):
+    def _check_king_guard(self, fromPos, moves, specialMoves={}):
         result = []
 
         if self._turn == self.WHITE:
@@ -217,7 +217,7 @@ class ChessBoard:
         done = False
         fp = self._board[fy][fx]
         self._board[fy][fx] = "."
-        if not self.isThreatened(kx, ky):
+        if not self._is_threatened(kx, ky):
             done = True
         self._board[fy][fx] = fp
 
@@ -237,7 +237,7 @@ class ChessBoard:
                 sp = self._board[self._ep[1]][self._ep[0]]
                 self._board[self._ep[1]][self._ep[0]] = "."
 
-            if not self.isThreatened(kx, ky):
+            if not self._is_threatened(kx, ky):
                 result.append(m)
 
             if sp:
@@ -248,10 +248,10 @@ class ChessBoard:
 
         return result
 
-    def isFree(self, x, y):
+    def _is_free(self, x, y):
         return self._board[y][x] == '.'
 
-    def getColor(self, x, y):
+    def _get_color(self, x, y):
         if self._board[y][x] == '.':
             return self.NOCOLOR
         elif self._board[y][x].isupper():
@@ -260,7 +260,7 @@ class ChessBoard:
             return self.BLACK
 
 
-    def isThreatened(self, lx, ly, player=None):
+    def _is_threatened(self, lx, ly, player=None):
     #returns if there is check
         if player == None:
             player = self._turn
@@ -297,9 +297,9 @@ class ChessBoard:
                 y += dy
                 if x < 0 or x > 7 or y < 0 or y > 7:
                     break
-                if self.isFree(x, y):
+                if self._is_free(x, y):
                     continue
-                elif self.getColor(x, y) == player:
+                elif self._get_color(x, y) == player:
                     break
                 else:
                     p = self._board[y][x].upper()
@@ -314,13 +314,13 @@ class ChessBoard:
                     break
         return False
 
-    def hasAnyValidMoves(self, player=None):
+    def _has_any_valid_moves(self, player=None):
         if player == None:
             player = self._turn
 
         for y in range(0, 8):
             for x in range(0, 8):
-                if self.getColor(x, y) == player:
+                if self._get_color(x, y) == player:
                     if len(self.getValidMoves((x, y))):
                         return True
         return False
@@ -338,9 +338,9 @@ class ChessBoard:
                 y += dy
                 if x < 0 or x > 7 or y < 0 or y > 7:
                     break
-                if self.isFree(x, y):
+                if self._is_free(x, y):
                     moves.append((x, y))
-                elif self.getColor(x, y) != self._turn:
+                elif self._get_color(x, y) != self._turn:
                     moves.append((x, y))
                     break
                 else:
@@ -356,7 +356,7 @@ class ChessBoard:
 
         moves = self.traceValidMoves(fromPos, dirs)
 
-        moves = self.checkKingGuard(fromPos, moves)
+        moves = self._check_king_guard(fromPos, moves)
 
         return moves
 
@@ -366,7 +366,7 @@ class ChessBoard:
 
         moves = self.traceValidMoves(fromPos, dirs)
 
-        moves = self.checkKingGuard(fromPos, moves)
+        moves = self._check_king_guard(fromPos, moves)
 
         return moves
 
@@ -376,7 +376,7 @@ class ChessBoard:
 
         moves = self.traceValidMoves(fromPos, dirs)
 
-        moves = self.checkKingGuard(fromPos, moves)
+        moves = self._check_king_guard(fromPos, moves)
 
         return moves
 
@@ -396,16 +396,16 @@ class ChessBoard:
             ocol = self.WHITE
             eprow = 4
 
-        if self.isFree(fx, fy + movedir):
+        if self._is_free(fx, fy + movedir):
             moves.append((fx, fy + movedir))
 
         if fy == startrow:
-            if self.isFree(fx, fy + movedir) and self.isFree(fx, fy + (movedir * 2)):
+            if self._is_free(fx, fy + movedir) and self._is_free(fx, fy + (movedir * 2)):
                 moves.append((fx, fy + (movedir * 2)))
                 specialMoves[(fx, fy + (movedir * 2))] = ChessMove.EP_MOVE
-        if fx < 7 and self.getColor(fx + 1, fy + movedir) == ocol:
+        if fx < 7 and self._get_color(fx + 1, fy + movedir) == ocol:
             moves.append((fx + 1, fy + movedir))
-        if fx > 0 and self.getColor(fx - 1, fy + movedir) == ocol:
+        if fx > 0 and self._get_color(fx - 1, fy + movedir) == ocol:
             moves.append((fx - 1, fy + movedir))
 
         if fy == eprow and self._ep[1] != 0:
@@ -416,7 +416,7 @@ class ChessBoard:
                 moves.append((fx - 1, fy + movedir))
                 specialMoves[(fx - 1, fy + movedir)] = ChessMove.EP_CAPTURE_MOVE
 
-        moves = self.checkKingGuard(fromPos, moves, specialMoves)
+        moves = self._check_king_guard(fromPos, moves, specialMoves)
 
         return (moves, specialMoves)
 
@@ -427,10 +427,10 @@ class ChessBoard:
              (fx - 1, fy - 2), (fx - 2, fy - 1)]
         for p in m:
             if p[0] >= 0 and p[0] <= 7 and p[1] >= 0 and p[1] <= 7:
-                if self.getColor(p[0], p[1]) != self._turn:
+                if self._get_color(p[0], p[1]) != self._turn:
                     moves.append(p)
 
-        moves = self.checkKingGuard(fromPos, moves)
+        moves = self._check_king_guard(fromPos, moves)
 
         return moves
 
@@ -457,19 +457,19 @@ class ChessBoard:
         self._board[fromPos[1]][fromPos[0]] = '.'
 
         for m in t_moves:
-            if not self.isThreatened(m[0], m[1]):
+            if not self._is_threatened(m[0], m[1]):
                 moves.append(m)
 
         if c_king:
-            if self.isFree(5, c_row) and self.isFree(6, c_row) and self._board[c_row][7].upper() == 'R':
-                if not self.isThreatened(4, c_row) and not self.isThreatened(5, c_row) and not self.isThreatened(6,
+            if self._is_free(5, c_row) and self._is_free(6, c_row) and self._board[c_row][7].upper() == 'R':
+                if not self._is_threatened(4, c_row) and not self._is_threatened(5, c_row) and not self._is_threatened(6,
                                                                                                                  c_row):
                     moves.append((6, c_row))
                     specialMoves[(6, c_row)] = ChessMove.KING_CASTLE_MOVE
         if c_queen:
-            if self.isFree(3, c_row) and self.isFree(2, c_row) and self.isFree(1, c_row) and self._board[c_row][
+            if self._is_free(3, c_row) and self._is_free(2, c_row) and self._is_free(1, c_row) and self._board[c_row][
                 0].upper() == 'R':
-                if not self.isThreatened(4, c_row) and not self.isThreatened(3, c_row) and not self.isThreatened(2,
+                if not self._is_threatened(4, c_row) and not self._is_threatened(3, c_row) and not self._is_threatened(2,
                                                                                                                  c_row):
                     moves.append((2, c_row))
                     specialMoves[(2, c_row)] = ChessMove.QUEEN_CASTLE_MOVE
@@ -517,10 +517,10 @@ class ChessBoard:
             p = self._board[fromPos[1]][fromPos[0]]
 
         if t == ChessMove.EP_MOVE:
-            self.setEP(toPos)
+            self._set_ep(toPos)
             self._cur_move.special_move_type = ChessMove.EP_MOVE
         else:
-            self.clearEP()
+            self._clear_ep()
 
         if self._board[toPos[1]][toPos[0]] != '.':
             self._cur_move.take = True
@@ -537,7 +537,7 @@ class ChessBoard:
         if not toPos in moves:
             return False
 
-        self.clearEP()
+        self._clear_ep()
 
         if self._board[toPos[1]][toPos[0]] == ".":
             self._fifty += 1
@@ -569,7 +569,7 @@ class ChessBoard:
         if not toPos in moves:
             return False
 
-        self.clearEP()
+        self._clear_ep()
 
         if self._turn == self.WHITE:
             self._white_king_castle = False
@@ -602,7 +602,7 @@ class ChessBoard:
             self._board[toPos[1]][toPos[0]] = self._board[fromPos[1]][fromPos[0]]
             self._board[fromPos[1]][fromPos[0]] = "."
 
-        self.updateKingLocations()
+        self._update_king_locations()
         return True
 
     def moveQueen(self, fromPos, toPos):
@@ -612,7 +612,7 @@ class ChessBoard:
         if not toPos in moves:
             return False
 
-        self.clearEP()
+        self._clear_ep()
 
         if self._board[toPos[1]][toPos[0]] == ".":
             self._fifty += 1
@@ -630,7 +630,7 @@ class ChessBoard:
         if not toPos in moves:
             return False
 
-        self.clearEP()
+        self._clear_ep()
 
         if self._board[toPos[1]][toPos[0]] == ".":
             self._fifty += 1
@@ -661,7 +661,7 @@ class ChessBoard:
             if fx == 7:
                 self._black_king_castle = False
 
-        self.clearEP()
+        self._clear_ep()
 
         if self._board[toPos[1]][toPos[0]] == ".":
             self._fifty += 1
@@ -849,7 +849,7 @@ class ChessBoard:
         self._reason = 0
         self._game_result = 0
         self._push_state()
-        self.updateKingLocations()
+        self._update_king_locations()
 
     def setFEN(self, fen):
         """
@@ -908,7 +908,7 @@ class ChessBoard:
 
         self._three_rep_stack.append(three_state)
 
-        self.updateKingLocations()
+        self._update_king_locations()
 
     def getFEN(self):
         """
@@ -1048,7 +1048,7 @@ class ChessBoard:
         else:
             kx, ky = self._black_king_location
 
-        return self.isThreatened(kx, ky, self._turn)
+        return self._is_threatened(kx, ky, self._turn)
 
     def isGameOver(self):
         """
@@ -1101,9 +1101,9 @@ class ChessBoard:
         if x < 0 or x > 7 or y < 0 or y > 7:
             return False
 
-        self.updateKingLocations()
+        self._update_king_locations()
 
-        if self.getColor(x, y) != self._turn:
+        if self._get_color(x, y) != self._turn:
             return []
 
         p = self._board[y][x].upper()
@@ -1140,7 +1140,7 @@ class ChessBoard:
             self._result = self.GAME_IS_OVER
             return False
 
-        self.updateKingLocations()
+        self._update_king_locations()
 
         fx, fy = fromPos
         tx, ty = toPos
@@ -1164,12 +1164,12 @@ class ChessBoard:
             return False
 
         #check if piece on location
-        if self.isFree(fx, fy):
+        if self._is_free(fx, fy):
             self._reason = self.INVALID_FROM_LOCATION
             return False
 
         #check color of piece
-        if self.getColor(fx, fy) != self._turn:
+        if self._get_color(fx, fy) != self._turn:
             self._reason = self.INVALID_COLOR
             return False
 
@@ -1212,20 +1212,20 @@ class ChessBoard:
         if self.isCheck():
             self._cur_move.check = "+"
 
-        if not self.hasAnyValidMoves():
+        if not self._has_any_valid_moves():
             if self.isCheck():
                 self._cur_move.check = "#"
                 if self._turn == self.WHITE:
-                    self.endGame(self.BLACK_WIN)
+                    self._end_game(self.BLACK_WIN)
                 else:
-                    self.endGame(self.WHITE_WIN)
+                    self._end_game(self.WHITE_WIN)
             else:
-                self.endGame(self.STALEMATE)
+                self._end_game(self.STALEMATE)
         else:
             if self._fifty == 100:
-                self.endGame(self.FIFTY_MOVES_RULE)
+                self._end_game(self.FIFTY_MOVES_RULE)
             elif self._three_repetitions():
-                self.endGame(self.THREE_REPETITION_RULE)
+                self._end_game(self.THREE_REPETITION_RULE)
 
         self._push_state()
         self._push_move()
