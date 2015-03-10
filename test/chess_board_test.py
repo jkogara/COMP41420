@@ -9,6 +9,12 @@ class ChessBoardTest(unittest.TestCase):
     def setUp(self):
         self.chess_board = ChessBoard()
 
+    def test_getMoveCount(self):
+        self.assertEqual(self.chess_board.getMoveCount(), 0)
+        self.chess_board.addTextMove('a4')
+        self.assertEqual(self.chess_board.getMoveCount(), 1)
+        self.chess_board.addTextMove('g5')
+        self.assertEqual(self.chess_board.getMoveCount(), 2)
 
     def test_setFEN(self):
         self.assertEqual(self.chess_board._board,
