@@ -98,7 +98,6 @@ class ChessBoardTest(unittest.TestCase):
         # assert
         self.assertFalse(self.chess_board.addTextMove(invalid_txt))
 
-        
     def test_addTextMove_returns_true_when_move_is_valid(self):
         # arrange
         valid_txt = "e2e4"
@@ -137,8 +136,8 @@ class ChessBoardTest(unittest.TestCase):
 
 
     def test_getAllTextMoves(self):
-        #
         self.assertFalse(self.chess_board.getAllTextMoves())
+
 
 
 
