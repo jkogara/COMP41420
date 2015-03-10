@@ -176,6 +176,11 @@ class ChessBoardTest(unittest.TestCase):
         # assert
         self.assertTrue(self.chess_board.getGameResult())
 
+    def test_getBoard_returns_object(self):
+        # assert
+        self.assertTrue(len(self.chess_board.getBoard()) > 0)
+
+
 
 if __name__ == '__main__':
     unittest.main()
