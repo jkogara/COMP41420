@@ -87,7 +87,6 @@ class ChessBoardTest(unittest.TestCase):
         p0 = self.chess_board._state_stack_pointer
         self.assertEqual((p1 - 1), p0)
 
-
     def test_getLastMoveType(self):
         self.assertEqual(self.chess_board.getLastMoveType(), None)
 
