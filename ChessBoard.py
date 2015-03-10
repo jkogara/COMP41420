@@ -64,14 +64,6 @@ class ChessBoard:
     FIFTY_MOVES_RULE = 4
     THREE_REPETITION_RULE = 5
 
-    # Special moves
-    EP_CAPTURE_MOVE = 2
-    EP_MOVE = 1
-    KING_CASTLE_MOVE = 4
-    NORMAL_MOVE = 0
-    PROMOTION_MOVE = 3
-    QUEEN_CASTLE_MOVE = 5
-
     # Text move output type
     AN = 0  # g4-e3
     SAN = 1  # Bxe3
